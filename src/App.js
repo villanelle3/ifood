@@ -1,4 +1,4 @@
-import Header from './components/Navbar-site';
+// import Header from './components/Navbar-site';
 import './styles/App.scss';
 import './styles/index.css';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -9,7 +9,7 @@ import About from './pages/about';
 function App() {
   return (
     <BrowserRouter>
-        <Header/>
+        {/* <Header/> */}
           <Routes>
             <Route path='/' element={<Main/>} />
             <Route path='/about' element={<About/>} />

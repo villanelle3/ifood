@@ -1,19 +1,34 @@
 @import 'App.scss';
 
+::-moz-selection { /* Code for Firefox */
+    color: white;
+    background: $letrasHeader;
+}
+
+::selection {
+    color: white;
+    background: $letrasHeader;
+}
+
 header{
     background: linear-gradient(0deg, rgba(230, 103, 103, 0.05), rgba(230, 103, 103, 0.05)),
     linear-gradient(0deg, $header, $header);
     color: $letrasHeader;
-}
-
-#hs-table-search{
-    border: 1px solid $laranja;
-}
-
-#AddForm{
-    margin-top: 16px;
-}
-
-.loading__error{
-    padding-left: 16px;
+    height: 200px;
+    .header__img{
+        width: 125px;
+        border: solid;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    @media screen and (max-width: 767px) {
+        height: 150px;
+        .header__img{
+            width: 95px;
+        }
+    }
+    @media screen and (min-width: 768px) and (max-width: 1023px) {
+        height: 180px;
+    }
 }
