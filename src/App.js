@@ -4,6 +4,7 @@ import './styles/index.css';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Main from './pages/main';
 import About from './pages/about';
+import Footer from './components/Footer';
 
 
 function App() {
@@ -14,7 +15,7 @@ function App() {
             <Route path='/' element={<Main/>} />
             <Route path='/about' element={<About/>} />
           </Routes>
-        {/* <Footer/> */}
+        <Footer/>
     </BrowserRouter>
   );
 }
