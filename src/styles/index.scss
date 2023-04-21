@@ -1,0 +1,19 @@
+@import 'App.scss';
+
+header{
+    background: linear-gradient(0deg, rgba(230, 103, 103, 0.05), rgba(230, 103, 103, 0.05)),
+    linear-gradient(0deg, $header, $header);
+    color: $letrasHeader;
+}
+
+#hs-table-search{
+    border: 1px solid $laranja;
+}
+
+#AddForm{
+    margin-top: 16px;
+}
+
+.loading__error{
+    padding-left: 16px;
+}

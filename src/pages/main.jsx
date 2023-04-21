@@ -1,6 +1,13 @@
+import GlobalStyle, { Container } from "../styles"
+
 function Main(){
     return (
-        <p>ola mundoi</p>
+        <>
+            <GlobalStyle/>
+            <Container>
+                <header>esse é um teste de cor de fundo</header>
+            </Container>
+        </>
     )
 }
 
