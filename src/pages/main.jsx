@@ -1,4 +1,5 @@
 import Header from "../components/Header"
+import PaginaInicial from "../components/Main"
 import GlobalStyle, { Container } from "../styles"
 
 function Main(){
@@ -7,6 +8,7 @@ function Main(){
             <GlobalStyle/>
             <Container>
                 <Header/>
+                <PaginaInicial/>
             </Container>
         </>
     )
