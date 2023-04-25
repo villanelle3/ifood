@@ -3,7 +3,7 @@ import './styles/App.scss';
 import './styles/index.css';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Main from './pages/main';
-import About from './pages/about';
+import Restaurant from './pages/restaurant';
 import Footer from './components/Footer';
 
 
@@ -13,7 +13,7 @@ function App() {
         {/* <Header/> */}
           <Routes>
             <Route path='/' element={<Main/>} />
-            <Route path='/about' element={<About/>} />
+            <Route path='/restaurant' element={<Restaurant/>} />
           </Routes>
         <Footer/>
     </BrowserRouter>

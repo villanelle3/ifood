@@ -1,22 +1,29 @@
 @import 'App.scss';
 
-::-moz-selection { /* Code for Firefox */
-    color: white;
-    background: $letrasHeader;
-}
-
-::selection {
-    color: white;
-    background: $letrasHeader;
-}
-
-header{
+@mixin NavBg {
     color: $letrasHeader;
-    height: 200px;
     background-image: url("../components/Header/images/fork.png"), linear-gradient(0deg, rgba(230, 103, 103, 0.05), rgba(230, 103, 103, 0.05)),
     linear-gradient(0deg, $header, $header); 
     background-repeat: repeat;
     background-size: 25px;
+}
+
+@mixin selectionn {
+    color: white;
+    background: $letrasHeader;
+}
+
+::-moz-selection { /* Code for Firefox */
+    @include selectionn;
+}
+
+::selection {
+    @include selectionn;
+}
+
+header{
+    height: 200px;
+    @include NavBg;
     .header__img{
         width: 125px;
         border: solid;
@@ -45,4 +52,44 @@ header{
     @media screen and (max-width: 767px) {
         width: 90px;
     }
+}
+
+.card__body{
+    border: 1.5px solid $letrasHeader;
+    &__text{
+        color: $letrasHeader;
+    }
+    &__title{
+        color: $letrasHeader;
+        font-weight: bold;
+    }
+    &__star{
+        color: #FFB930;
+    }
+}
+
+.NavBar{
+    height: 100px;
+    @include NavBg;
+    &__item{
+        color: $letrasHeader;
+    }
+}
+
+.NavBarMobile{
+    @include NavBg;
+}
+
+.nav_link:hover {
+    cursor: pointer;
+    color: $letrasHeader;
+}
+
+.vertical-center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
 }

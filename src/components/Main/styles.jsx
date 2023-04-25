@@ -17,7 +17,7 @@ export const Span = styled.span`
 export const SpanDestaque = styled.span`
     position: absolute;
     top: 0;
-    left: 230px;
+    left: 0;
     margin: 16px;
     @media screen and (max-width: 767px) {
         left: 0;
@@ -25,4 +25,8 @@ export const SpanDestaque = styled.span`
     @media screen and (min-width: 768px) and (max-width: 1023px) {
         left: 0;
     }
+`
+
+export const SpanLeft = styled.span`
+    float: right;
 `
