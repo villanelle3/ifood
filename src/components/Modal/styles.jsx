@@ -20,3 +20,9 @@ export const Descricao = styled.p`
     line-height: 22px;
     color: white;
 `
+
+export const Imagem = styled.img`
+    width: 100%;
+    height: 100%;
+    object-fit: cover;  
+`
