@@ -10,7 +10,7 @@
 
 @mixin selectionn {
     color: white;
-    background: $letrasHeader;
+    background: #441910;
 }
 
 ::-moz-selection { /* Code for Firefox */
@@ -110,6 +110,12 @@ header{
     background-color: $letrasHeader;
 }
 
+.bgligth{
+    background-color: white;
+    color: $letrasHeader;
+}
+
 .CardRestaurant{
     border: 6px solid #E66767;
 }
+

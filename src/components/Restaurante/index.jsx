@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { MainPage, Botao } from "./styles"
+import { MainPage } from "./styles"
 import Card from 'react-bootstrap/Card'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import Container from 'react-bootstrap/Container'
+import Modal from '../Modal'
 
 const Restaurantes = function Restaurantes(){
     const [ScreenWidth, setScreenWidth] = useState(window.innerWidth); // Tamanho da tela
@@ -40,9 +41,7 @@ const Restaurantes = function Restaurantes(){
                                         sashimis deliciosos e pratos quentes irresistíveis. Entrega rápida, embalagens cuidadosas 
                                         e qualidade garantida. Experimente o Japão sem sair do lar com nosso delivery!
                                     </Card.Text>
-                                    <Botao type="button">
-                                        Saiba mais
-                                    </Botao>
+                                    <Modal/>
                                 </Card.Body>
                             </Card>
                         </Col>
