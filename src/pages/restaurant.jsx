@@ -1,10 +1,11 @@
 import NavBarSite from "../components/Navbar-site";
+import Restaurantes from "../components/Restaurante";
 
 function Restaurant() {
     return (
         <div className="App">
             <NavBarSite/>
-            <p style={{marginTop: "24px"}}>todo</p>
+            <Restaurantes/>
         </div>
     );
 }

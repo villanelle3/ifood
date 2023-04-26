@@ -68,6 +68,17 @@ header{
     }
 }
 
+.card__body__invertido{
+    background-color: $letrasHeader;
+    &__text{
+        color: $header;
+    }
+    &__title{
+        color: $header;
+        font-weight: bold;
+    }
+}
+
 .NavBar{
     height: 100px;
     @include NavBg;
@@ -92,4 +103,13 @@ header{
     left: 50%;
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+}
+
+.bgdark{
+    color: $header;
+    background-color: $letrasHeader;
+}
+
+.CardRestaurant{
+    border: 6px solid #E66767;
 }
