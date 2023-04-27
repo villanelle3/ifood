@@ -27,7 +27,9 @@ export default function NavBarSite() {
                     <Container className='vertical-center'>
                         <Row>                        
                             <Col className="d-flex justify-content-center" ><LinkNav href="/">Restaurantes</LinkNav></Col>
-                            <Col className="d-flex justify-content-center" xs={5}><Imagem src={logo} alt="Logo" /></Col>
+                            <Col className="d-flex justify-content-center" xs={5}> <LinkNav href='/'>
+                                <Imagem src={logo} alt="Logo" /></LinkNav> 
+                            </Col>
                             <Col className="d-flex justify-content-center"><TextNav>0 produto(s) no carrinho</TextNav></Col>
                         </Row>
                     </Container>
