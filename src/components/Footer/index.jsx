@@ -5,6 +5,7 @@ import Col from 'react-bootstrap/Col';
 import logo from './images/logo.png'
 
 const Footer = function Footer(){
+    // Data atual ---- ano = new Date().getFullYear()
     const RedesSociais = [
         { name: 'bi bi-instagram', href: '/', },
         { name: 'bi bi-facebook', href: '/', },

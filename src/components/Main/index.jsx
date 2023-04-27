@@ -5,6 +5,7 @@ import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import Container from 'react-bootstrap/Container'
 import Tag from '../Tag'
+import Restaurante from '../../models/restaurante'
 
 const PaginaInicial = function PaginaInicial(){
     const [ScreenWidth, setScreenWidth] = useState(window.innerWidth); // Tamanho da tela
@@ -18,9 +19,10 @@ const PaginaInicial = function PaginaInicial(){
         }
     }, []);
     const Restaurantes = [
-        { id: 0, name: 'Nome do restaurante', nota: 4.6, type: 'Italiana', destaque: true, href: 'https://media.gazetadopovo.com.br/bomgourmet/2016/05/parmegiana-cae978d0.jpg', },
-        { id: 1, name: 'Nome do restaurante', nota: 4.6, type: 'Italiana', destaque: false, href: 'https://media.gazetadopovo.com.br/bomgourmet/2016/05/parmegiana-cae978d0.jpg', },
-        { id: 2, name: 'Nome do restaurante', nota: 4.6, type: 'Italiana', destaque: false, href: 'https://media.gazetadopovo.com.br/bomgourmet/2016/05/parmegiana-cae978d0.jpg', },
+        new Restaurante(0, 'Nome do restaurante', 5.0, 'Italiana', true, 'https://media.gazetadopovo.com.br/bomgourmet/2016/05/parmegiana-cae978d0.jpg'),
+        new Restaurante(1, 'Nome do restaurante', 4.5, 'Vegana', false, 'https://www.acasaencantada.com.br/wp-content/uploads/2021/03/Comida-vegana-alface-grao-de-bico-tomatinhos-cereja-abacate-e-folhas-verdes-1.webp'),
+        new Restaurante(2, 'Nome do restaurante', 4.8, 'Brasileira', false, 'https://www.comidaereceitas.com.br/wp-content/uploads/2008/07/Picanha-inteira-na-grelha-para-churrasco-freepik-780x520.jpg'),
+        new Restaurante(3, 'Nome do restaurante', 4.9, 'Japonesa', false, 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEggcx1H_iT4vTBkXJLj-T__RUoLFLe3K-vsJ5ZG6nLq1ZDCHfrs8M40wHFSndP5Zhvcx4b6_QwukYkDUzE1nAlQlR8mmmgpRH1iFrO5IDJV0urT5z_hRWUU0Pi6o3979x2cdJQJ-7iPJ2WIDeOhU6egT8-IbkzLRsDxUlWqpFSJkR4Nrn8ZT7u3b1Mk/s2000/receita-de-sushi.jpg')
     ]
     return(
         <MainPage>
