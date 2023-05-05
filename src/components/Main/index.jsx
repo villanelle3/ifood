@@ -51,7 +51,7 @@ const PaginaInicial = function PaginaInicial(){
                                         ullam deleniti consequuntur asperiores?
                                     </Card.Text>
                                     <SaibaMaisContainer>
-                                        <a href="/restaurant"><Tag children="Saiba mais" /></a>
+                                        <a href={`/restaurant/${item.id}`}><Tag children="Saiba mais" /></a>
                                     </SaibaMaisContainer>
                                 </Card.Body>
                             </Card>
