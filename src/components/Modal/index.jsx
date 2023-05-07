@@ -5,7 +5,7 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
-export default function RestaurantModal() {
+export default function RestaurantModal(props) {
     const [showModal, setShowModal] = React.useState(false);
     return (
         <>
@@ -28,7 +28,7 @@ export default function RestaurantModal() {
                             <Container>
                                 <Row>
                                     <Col sm={4}>
-                                        <Imagem src="https://img.freepik.com/fotos-gratis/vista-superior-da-pizza-de-pepperoni-com-salsichas-de-cogumelos-pimentao-verde-oliva-e-milho-no-preto-de-madeira_141793-2158.jpg?w=2000" alt="" />
+                                        <Imagem src={props.img} alt="" />
                                     </Col>
                                     <Col sm={8}>
                                         <button
@@ -39,15 +39,11 @@ export default function RestaurantModal() {
                                                 x
                                             </span>
                                         </button>
-                                        <Titulo className="my-2">Nome do prato</Titulo>
+                                        <Titulo className="my-2">{props.name}</Titulo>
                                         <Descricao className="my-4 text-lg leading-relaxed">
-                                            I always felt like I could do anything. That's the main
-                                            thing people are controlled by! Thoughts- their perception
-                                            of themselves! They're slowed down by their perception of
-                                            themselves. If you're taught you can't do anything, you
-                                            won't do anything. I was taught I could do everything.
+                                            {props.bio}
                                         </Descricao>
-                                        <Detalhe>Serve de 2 a 3 pessoas</Detalhe>
+                                        <Detalhe>{props.porcao}</Detalhe>
                                         <button
                                         className="
                                         font-bold px-2 py-1 text-sm outline-none 
@@ -56,12 +52,11 @@ export default function RestaurantModal() {
                                         style={{backgroundColor: "#FFEBD9", color:"#E66767"}}
                                         onClick={() => setShowModal(false)}
                                         >
-                                            Adicionar ao carrinho - R$ 60,00
+                                            Adicionar ao carrinho - R$ {props.price}
                                         </button>
                                     </Col>
                                 </Row>
                             </Container>
-                            
                         </div>
                     </div>
                 </div>

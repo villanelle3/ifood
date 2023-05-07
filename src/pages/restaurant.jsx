@@ -7,9 +7,8 @@ function Restaurant(props) {
     return (
         <div className="App">
             <p>{props.restaurante}</p>
-            <p>{id}</p>
             <NavBarSite/>
-            <Restaurantes/>
+            <Restaurantes fk={id}/>
         </div>
     );
 }

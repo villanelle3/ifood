@@ -6,46 +6,76 @@ import Row from 'react-bootstrap/Row'
 import Container from 'react-bootstrap/Container'
 import Modal from '../Modal'
 
-const Restaurantes = function Restaurantes(){
-    const [ScreenWidth, setScreenWidth] = useState(window.innerWidth); // Tamanho da tela
+const Restaurantes = function Restaurantes(props){
+    const [ScreenWidth, setScreenWidth] = useState(window.innerWidth) // Tamanho da tela
     function handleWindowSizeChange() {
-        setScreenWidth(window.innerWidth);
+        setScreenWidth(window.innerWidth)
     }
     useEffect(() => {
-        window.addEventListener('resize', handleWindowSizeChange);
+        window.addEventListener('resize', handleWindowSizeChange)
         return () => {
-            window.removeEventListener('resize', handleWindowSizeChange);
+            window.removeEventListener('resize', handleWindowSizeChange)
         }
     }, []);
-    const Restaurantes = [
-        { id: 0, name: 'Nome do prato', destaque: true, href: 'https://media.gazetadopovo.com.br/bomgourmet/2016/05/parmegiana-cae978d0.jpg', },
-        { id: 1, name: 'Nome do prato', destaque: false, href: 'https://media.gazetadopovo.com.br/bomgourmet/2016/05/parmegiana-cae978d0.jpg', },
-        { id: 2, name: 'Nome do prato', destaque: false, href: 'https://media.gazetadopovo.com.br/bomgourmet/2016/05/parmegiana-cae978d0.jpg', },
-        { id: 3, name: 'Nome do prato', destaque: false, href: 'https://media.gazetadopovo.com.br/bomgourmet/2016/05/parmegiana-cae978d0.jpg', },
-        { id: 4, name: 'Nome do prato', destaque: false, href: 'https://media.gazetadopovo.com.br/bomgourmet/2016/05/parmegiana-cae978d0.jpg', },
-    ]
+    const [data, setData] = useState(null)
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState(null)
+    useEffect(() => {
+        fetch(`https://mocki.io/v1/3d834258-fec4-4ecb-9170-019b5b8c6fdc`)
+            .then((response) => {
+                if (!response.ok) 
+                {
+                throw new Error(`This is an HTTP error: The status is ${response.status}`);
+                }
+                return response.json()
+            })
+            .then((actualData) => {
+                setData(actualData)
+                setError(null)
+            })
+            .catch((err) => {
+                setError(err.message)
+                setData(null)
+            })
+            .finally(() => {
+                setLoading(false)
+            })
+        }, [])
+        const FK = parseInt(props.fk);
     return(
         <MainPage>
             <Container>
                 <Row xs={1} md={2} lg={3} className="g-4">
-                    {Restaurantes.map((item) => (
-                        <Col className="d-flex justify-content-center" key={item.id}>
-                            <Card style={{ width: `${ ScreenWidth <= 768 ? ' ' : '472px' }`, border: "6px solid #E66767", borderRadius:"0" }}>
-                                <Card.Img variant="top" src={item.href} alt={item.name} style={{position: "relative",  borderRadius:"0" }} />
-                                <Card.Body className='card__body__invertido'>
-                                    <Card.Title className='card__body__invertido__title' style={{fontWeight: "bold"}}>
-                                        {item.name}
-                                    </Card.Title>
-                                    <Card.Text className='card__body__invertido__text'>
-                                        Peça já o melhor da culinária japonesa no conforto da sua casa! Sushis frescos, 
-                                        sashimis deliciosos e pratos quentes irresistíveis. Entrega rápida, embalagens cuidadosas 
-                                        e qualidade garantida. Experimente o Japão sem sair do lar com nosso delivery!
-                                    </Card.Text>
-                                    <Modal/>
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                    ))}
+                    {loading && <div>A moment please...</div>}
+                    {error && (
+                        <div>{`There is a problem fetching the post data - ${error}`}</div>
+                    )}
+                    {data &&
+                        data.map(({ id, fk, name, image, bio, porcao, price }) => {
+                            if (fk === FK){
+                                return <Col className="d-flex justify-content-center" key={id}>
+                                    <Card style={{ width: `${ ScreenWidth <= 768 ? ' ' : '472px' }`, 
+                                        border: "6px solid #E66767", borderRadius:"0" }}>
+                                        <Card.Img variant="top" src={image} alt={name} style={{position: "relative",  
+                                            borderRadius:"0", objectFit:"cover" }} 
+                                        />
+                                        <Card.Body className='card__body__invertido'>
+                                            <Card.Title className='card__body__invertido__title' style={{fontWeight: "bold"}}>
+                                                {name}
+                                            </Card.Title>
+                                            <Card.Text className='card__body__invertido__text'>
+                                                {bio}
+                                            </Card.Text>
+                                            <Modal price={price} porcao={porcao} name={name} bio={bio} img={image} />
+                                        </Card.Body>
+                                    </Card>
+                                </Col>
+                            }
+                            else{
+                                return ""
+                            }
+                        })
+                    }
                 </Row>
             </Container>
         </MainPage>
