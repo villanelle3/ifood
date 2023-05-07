@@ -47,6 +47,14 @@ const PaginaInicial = function PaginaInicial(){
                 setLoading(false);
             });
         }, []);
+        const getBio = (bio) => {
+            if(bio.length > 220){
+                return bio.slice(0, 217) + '...'
+            }
+            else{
+                return bio
+            }
+        }
     return(
         <MainPage>
             <Container>
@@ -70,13 +78,7 @@ const PaginaInicial = function PaginaInicial(){
                                         </SpanLeft>
                                     </Card.Title>
                                     <Card.Text className='card__body__text'>
-                                    Our cupcakes are perfect for birthdays, weddings, baby showers, and any other special event 
-                                    that calls for a sweet celebration. We also offer custom designs and flavors to make your 
-                                    event truly unique. Whether you're in the mood for a sweet treat or need a special dessert 
-                                    for your next event, we invite you to come and experience the joy and delight of our cupcake 
-                                    store. We take pride in our warm and inviting atmosphere, where you can indulge in a decadent 
-                                    cupcake or a hot beverage with friends and family. Our friendly staff are always on hand to 
-                                    provide recommendations and help you select the perfect treat for any occasion.
+                                    {getBio("Our cupcakes are perfect for birthdays, weddings, baby showers, and any other special event that calls for a sweet celebration. We also offer custom designs and flavors to make your event truly unique. Whether you're in the mood for a sweet treat or need a special dessert for your next event, we invite you to come and experience the joy and delight of our cupcake store. We take pride in our warm and inviting atmosphere, where you can indulge in a decadent cupcake or a hot beverage with friends and family. Our friendly staff are always on hand to provide recommendations and help you select the perfect treat for any occasion.")}
                                     </Card.Text>
                                     <SaibaMaisContainer>
                                         <a href={`/restaurant/${item.id}`}><Tag children="Saiba mais" /></a>
@@ -108,7 +110,7 @@ const PaginaInicial = function PaginaInicial(){
                                             <span className='card__body__star'><i className="bi bi-star-fill"></i></span> 
                                         </SpanLeft>
                                     </Card.Title>
-                                    <Card.Text className='card__body__text'>{bio}</Card.Text>
+                                    <Card.Text className='card__body__text'>{getBio(bio)}</Card.Text>
                                     <SaibaMaisContainer>
                                         <a href={`/restaurant/${id}`}><Tag children="Saiba mais" /></a>
                                     </SaibaMaisContainer>
