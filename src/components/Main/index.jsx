@@ -65,7 +65,9 @@ const PaginaInicial = function PaginaInicial(){
                                 <Card.Body className='card__body'>
                                     <Card.Title className='card__body__title' style={{fontWeight: "bold"}}>
                                         {item.name}
-                                        <SpanLeft>{item.nota} <span className='card__body__star'><i className="bi bi-star-fill"></i></span> </SpanLeft>
+                                        <SpanLeft>{item.nota} 
+                                            <span className='card__body__star'><i className="bi bi-star-fill"></i></span> 
+                                        </SpanLeft>
                                     </Card.Title>
                                     <Card.Text className='card__body__text'>
                                     Our cupcakes are perfect for birthdays, weddings, baby showers, and any other special event 
@@ -83,7 +85,7 @@ const PaginaInicial = function PaginaInicial(){
                             </Card>
                         </Col>
                     ))}
-                    {loading && <div>A moment please...</div>}
+                    {loading && <div className="spinner-border" role="status"><span className="sr-only">Loading...</span></div>}
                     {error && (
                         <div>{`There is a problem fetching the post data - ${error}`}</div>
                     )}
