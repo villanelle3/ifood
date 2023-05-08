@@ -13,4 +13,4 @@ function Restaurant(props) {
     );
 }
 
-export default Restaurant;
+export default Restaurant

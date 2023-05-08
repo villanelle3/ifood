@@ -20,7 +20,6 @@ export default function NavBarSite(props) {
         }
     }, []);
     const [data, setData] = useState(null);
-    const setLoading = useState(true);
     const [error, setError] = useState(null);
     useEffect(() => {
         fetch(`https://my-json-server.typicode.com/villanelle3/restaurantAPI/restaurantes`)
@@ -32,18 +31,13 @@ export default function NavBarSite(props) {
                 return response.json();
             })
             .then((actualData) => {
-                console.log(actualData) // Print data
                 setData(actualData);
                 setError(null);
             })
             .catch((err) => {
-                console.log(err.message); // Print data
                 setError(err.message);
                 setData(null);
             })
-            .finally(() => {
-                setLoading(false);
-            });
     }, );
     const FK = parseInt(props.fk)
     return (
