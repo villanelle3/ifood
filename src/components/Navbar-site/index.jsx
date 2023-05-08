@@ -8,7 +8,7 @@ import Col from 'react-bootstrap/Col'
 import NavMobilie from '../Navbar-mobile'
 import Banner from '../Banner'
 
-export default function NavBarSite() {
+export default function NavBarSite(props) {
     const [ScreenWidth, setScreenWidth] = useState(window.innerWidth); // Tamanho da tela
     function handleWindowSizeChange() {
         setScreenWidth(window.innerWidth);
@@ -19,6 +19,33 @@ export default function NavBarSite() {
             window.removeEventListener('resize', handleWindowSizeChange);
         }
     }, []);
+    const [data, setData] = useState(null);
+    const setLoading = useState(true);
+    const [error, setError] = useState(null);
+    useEffect(() => {
+        fetch(`https://my-json-server.typicode.com/villanelle3/restaurantAPI/restaurantes`)
+            .then((response) => {
+                if (!response.ok) 
+                {
+                throw new Error(`This is an HTTP error: The status is ${response.status}`);
+                }
+                return response.json();
+            })
+            .then((actualData) => {
+                console.log(actualData) // Print data
+                setData(actualData);
+                setError(null);
+            })
+            .catch((err) => {
+                console.log(err.message); // Print data
+                setError(err.message);
+                setData(null);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+    }, );
+    const FK = parseInt(props.fk)
     return (
         <>
             {ScreenWidth >= 768 ? 
@@ -36,7 +63,22 @@ export default function NavBarSite() {
                 </Disclosure>
                 </>
             : <NavMobilie/> }
-            <Banner image='https://i.ytimg.com/vi/Yiy4BjS6jEc/maxresdefault.jpg'/>
+                {FK === 0 ? <Banner 
+                    image="https://www.sabornamesa.com.br/media/k2/items/cache/8f096abef1c84b031550e510893c2d4d_XL.jpg" 
+                    name="Sweet Cupcake" category="Doceria"/> : ""}
+                {error && (
+                    <div>{`There is a problem fetching the post data - ${error}`}</div>
+                )}
+                {data &&
+                data.map(({ id, name, stars, bio, category, image, destaque }) => {
+                    if (id === FK){
+                        return <Banner image={image} name={name} category={category}/>
+                    }
+                    else{
+                        return ""
+                    }
+                })
+                }
         </>
     )
 }

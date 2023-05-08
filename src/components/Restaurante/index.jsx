@@ -41,7 +41,7 @@ const Restaurantes = function Restaurantes(props){
                 setLoading(false)
             })
         }, [])
-        const FK = parseInt(props.fk);
+        const FK = parseInt(props.fk)
     return(
         <MainPage>
             <Container>

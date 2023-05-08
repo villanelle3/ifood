@@ -52,7 +52,7 @@ export default function RestaurantModal(props) {
                                         style={{backgroundColor: "#FFEBD9", color:"#E66767"}}
                                         onClick={() => setShowModal(false)}
                                         >
-                                            Adicionar ao carrinho - R$ {props.price}
+                                            Adicionar ao carrinho - R$ {props.price}0
                                         </button>
                                     </Col>
                                 </Row>

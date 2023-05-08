@@ -34,59 +34,29 @@ const PaginaInicial = function PaginaInicial(){
                 return response.json();
             })
             .then((actualData) => {
-                console.log(actualData) // Print data
                 setData(actualData);
                 setError(null);
             })
             .catch((err) => {
-                console.log(err.message); // Print data
                 setError(err.message);
                 setData(null);
             })
             .finally(() => {
                 setLoading(false);
             });
-        }, []);
-        const getBio = (bio) => {
-            if(bio.length > 220){
-                return bio.slice(0, 217) + '...'
-            }
-            else{
-                return bio
-            }
+    }, []);
+    const getBio = (bio) => {
+        if(bio.length > 220){
+            return bio.slice(0, 217) + '...'
         }
+        else{
+            return bio
+        }
+    }
     return(
         <MainPage>
             <Container>
                 <Row xs={1} md={2} className="g-4">
-                    {Restaurantes.map((item) => (
-                        <Col className="d-flex justify-content-center" key={item.id}>
-                            <Card style={{ width: `${ ScreenWidth <= 768 ? ' ' : '472px' }` }}>
-                                <Card.Img variant="top" src={item.href} alt={item.name} style={{position: "relative"}} />
-                                {item.destaque ? 
-                                    <SpanDestaque><Tag children="Destaque da semana" /></SpanDestaque> 
-                                    : "" 
-                                }
-                                <Span>
-                                    <Tag children={item.type} />
-                                </Span>
-                                <Card.Body className='card__body'>
-                                    <Card.Title className='card__body__title' style={{fontWeight: "bold"}}>
-                                        {item.name}
-                                        <SpanLeft>{item.nota} 
-                                            <span className='card__body__star'><i className="bi bi-star-fill"></i></span> 
-                                        </SpanLeft>
-                                    </Card.Title>
-                                    <Card.Text className='card__body__text'>
-                                    {getBio("Our cupcakes are perfect for birthdays, weddings, baby showers, and any other special event that calls for a sweet celebration. We also offer custom designs and flavors to make your event truly unique. Whether you're in the mood for a sweet treat or need a special dessert for your next event, we invite you to come and experience the joy and delight of our cupcake store. We take pride in our warm and inviting atmosphere, where you can indulge in a decadent cupcake or a hot beverage with friends and family. Our friendly staff are always on hand to provide recommendations and help you select the perfect treat for any occasion.")}
-                                    </Card.Text>
-                                    <SaibaMaisContainer>
-                                        <a href={`/restaurant/${item.id}`}><Tag children="Saiba mais" /></a>
-                                    </SaibaMaisContainer>
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                    ))}
                     {loading && <div className="spinner-border" role="status"><span className="sr-only">Loading...</span></div>}
                     {error && (
                         <div>{`There is a problem fetching the post data - ${error}`}</div>
@@ -119,6 +89,34 @@ const PaginaInicial = function PaginaInicial(){
                         </Col>
                     ))
                     }
+                    {Restaurantes.map((item) => (
+                        <Col className="d-flex justify-content-center" key={item.id}>
+                            <Card style={{ width: `${ ScreenWidth <= 768 ? ' ' : '472px' }` }}>
+                                <Card.Img variant="top" src={item.href} alt={item.name} style={{position: "relative"}} />
+                                {item.destaque ? 
+                                    <SpanDestaque><Tag children="Destaque da semana" /></SpanDestaque> 
+                                    : "" 
+                                }
+                                <Span>
+                                    <Tag children={item.type} />
+                                </Span>
+                                <Card.Body className='card__body'>
+                                    <Card.Title className='card__body__title' style={{fontWeight: "bold"}}>
+                                        {item.name}
+                                        <SpanLeft>{item.nota} 
+                                            <span className='card__body__star'><i className="bi bi-star-fill"></i></span> 
+                                        </SpanLeft>
+                                    </Card.Title>
+                                    <Card.Text className='card__body__text'>
+                                    {getBio("Our cupcakes are perfect for birthdays, weddings, baby showers, and any other special event that calls for a sweet celebration. We also offer custom designs and flavors to make your event truly unique. Whether you're in the mood for a sweet treat or need a special dessert for your next event, we invite you to come and experience the joy and delight of our cupcake store. We take pride in our warm and inviting atmosphere, where you can indulge in a decadent cupcake or a hot beverage with friends and family. Our friendly staff are always on hand to provide recommendations and help you select the perfect treat for any occasion.")}
+                                    </Card.Text>
+                                    <SaibaMaisContainer>
+                                        <a href={`/restaurant/${item.id}`}><Tag children="Saiba mais" /></a>
+                                    </SaibaMaisContainer>
+                                </Card.Body>
+                            </Card>
+                        </Col>
+                    ))}
                 </Row>
             </Container>
         </MainPage>
