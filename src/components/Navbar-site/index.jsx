@@ -66,7 +66,7 @@ export default function NavBarSite(props) {
                 {data &&
                 data.map(({ id, name, stars, bio, category, image, destaque }) => {
                     if (id === FK){
-                        return <Banner image={image} name={name} category={category}/>
+                        return <Banner key={id} image={image} name={name} category={category}/>
                     }
                     else{
                         return ""

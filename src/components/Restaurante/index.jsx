@@ -21,7 +21,7 @@ const Restaurantes = function Restaurantes(props){
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
     useEffect(() => {
-        fetch(`https://mocki.io/v1/3d834258-fec4-4ecb-9170-019b5b8c6fdc`)
+        fetch(`https://dishes-api-8lac.vercel.app/restaurantes`)
             .then((response) => {
                 if (!response.ok) 
                 {
@@ -46,7 +46,7 @@ const Restaurantes = function Restaurantes(props){
         <MainPage>
             <Container>
                 <Row xs={1} md={2} lg={3} className="g-4">
-                    {loading && <div>A moment please...</div>}
+                {loading && <div className="spinner-border" role="status"><span className="sr-only">Loading...</span></div>}
                     {error && (
                         <div>{`There is a problem fetching the post data - ${error}`}</div>
                     )}
