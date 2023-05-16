@@ -126,3 +126,12 @@ header{
     background-color: rgba($color: #000000, $alpha: 0.73);
     border-radius:"0";
 }
+
+.ContPrices{
+    margin-bottom: 14px;
+    margin-top: 40px;
+    font-weight: bold;
+    &__col{
+        text-align: right;
+    }
+}

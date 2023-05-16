@@ -7,6 +7,7 @@ import Main from './pages/main'
 import Restaurant from './pages/restaurant' 
 import Footer from './components/Footer' 
 import { store } from './store'
+import Cart from './components/Cart'
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
               <Route path='/restaurant/:id' element={<Restaurant/>} />
             </Routes>
           <Footer/>
+          <Cart/>
       </BrowserRouter>
     </Provider>
   ) 

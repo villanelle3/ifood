@@ -51,7 +51,12 @@ export default function NavBarSite(props) {
                             <Col className="d-flex justify-content-center" xs={5}> <LinkNav href='/'>
                                 <Imagem src={logo} alt="Logo" /></LinkNav> 
                             </Col>
-                            <Col className="d-flex justify-content-center"><TextNav>0 produto(s) no carrinho</TextNav></Col>
+                            <Col className="d-flex justify-content-center">
+                                <TextNav>
+                                    0 produto(s) no carrinho
+                                    <button><i className="bi bi-cart-fill ml-3"></i></button>
+                                </TextNav>
+                            </Col>
                         </Row>
                     </Container>
                 </Disclosure>
