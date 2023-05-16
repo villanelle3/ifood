@@ -7,39 +7,49 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import NavMobilie from '../Navbar-mobile'
 import Banner from '../Banner'
+import { useDispatch } from 'react-redux'
+import { open } from '../../store/reducers/cart'
 
 export default function NavBarSite(props) {
-    const [ScreenWidth, setScreenWidth] = useState(window.innerWidth); // Tamanho da tela
+    const dispatch = useDispatch()
+    const [data, setData] = useState(null)
+    const [error, setError] = useState(null)
+    const [ScreenWidth, setScreenWidth] = useState(window.innerWidth) // Tamanho da tela
+    const FK = parseInt(props.fk)
+
+    const openCard = () => {
+        dispatch(open())
+    }
+
     function handleWindowSizeChange() {
-        setScreenWidth(window.innerWidth);
+        setScreenWidth(window.innerWidth)
     }
     useEffect(() => {
-        window.addEventListener('resize', handleWindowSizeChange);
+        window.addEventListener('resize', handleWindowSizeChange)
         return () => {
-            window.removeEventListener('resize', handleWindowSizeChange);
+            window.removeEventListener('resize', handleWindowSizeChange)
         }
-    }, []);
-    const [data, setData] = useState(null);
-    const [error, setError] = useState(null);
+    }, [])
+
     useEffect(() => {
         fetch(`https://my-json-server.typicode.com/villanelle3/restaurantAPI/restaurantes`)
             .then((response) => {
                 if (!response.ok) 
                 {
-                throw new Error(`This is an HTTP error: The status is ${response.status}`);
+                throw new Error(`This is an HTTP error: The status is ${response.status}`) 
                 }
-                return response.json();
+                return response.json() 
             })
             .then((actualData) => {
-                setData(actualData);
-                setError(null);
+                setData(actualData) 
+                setError(null) 
             })
             .catch((err) => {
-                setError(err.message);
-                setData(null);
+                setError(err.message) 
+                setData(null) 
             })
-    }, );
-    const FK = parseInt(props.fk)
+    }, )
+    
     return (
         <>
             {ScreenWidth >= 768 ? 
@@ -54,7 +64,9 @@ export default function NavBarSite(props) {
                             <Col className="d-flex justify-content-center">
                                 <TextNav>
                                     0 produto(s) no carrinho
-                                    <button><i className="bi bi-cart-fill ml-3"></i></button>
+                                    <button type='button' onClick={openCard}>
+                                        <i className="bi bi-cart-fill ml-3"></i>
+                                    </button>
                                 </TextNav>
                             </Col>
                         </Row>
@@ -69,14 +81,14 @@ export default function NavBarSite(props) {
                     <div>{`There is a problem fetching the post data - ${error}`}</div>
                 )}
                 {data &&
-                data.map(({ id, name, stars, bio, category, image, destaque }) => {
-                    if (id === FK){
-                        return <Banner key={id} image={image} name={name} category={category}/>
-                    }
-                    else{
-                        return ""
-                    }
-                })
+                    data.map(({ id, name, stars, bio, category, image, destaque }) => {
+                        if (id === FK){
+                            return <Banner key={id} image={image} name={name} category={category}/>
+                        }
+                        else{
+                            return ""
+                        }
+                    })
                 }
         </>
     )

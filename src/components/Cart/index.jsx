@@ -1,12 +1,22 @@
 import { Overlay, CartContainer, SideBar, Btn, CardItem } from "./styles"
 import Container from 'react-bootstrap/Container';
+import { useSelector } from 'react-redux'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { useDispatch } from 'react-redux'
+import { close } from '../../store/reducers/cart'
+
 
 const Cart = () => {
+    const { isOpen } = useSelector((state) => state.cart)
+    const dispatch = useDispatch()
+    const closeCard = () => {
+        dispatch(close())
+    }
+
     return(
-        <CartContainer>
-            <Overlay/>
+        <CartContainer className={isOpen ? "is-open" : ""}>
+            <Overlay onClick={closeCard} />
             <SideBar>
                 <ul>
                     <CardItem>
