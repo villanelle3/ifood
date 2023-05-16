@@ -2,7 +2,7 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Disclosure, } from '@headlessui/react'
 import { TextNav } from '../Navbar-site/styles'
 
-const NavMobilie = function(){
+const NavMobilie = function(props){
     const navigation = [
         { name: 'Restaurantes', href: '/', },
     ]
@@ -27,7 +27,7 @@ const NavMobilie = function(){
                             </div>
                                 <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                                     <div className="flex flex-shrink-0 items-center">
-                                        <TextNav>0 produto(s) no carrinho</TextNav>
+                                        <TextNav>{props.n} produto(s) no carrinho</TextNav>
                                     </div> 
                                 </div>
                             </div>

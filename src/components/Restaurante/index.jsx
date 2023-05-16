@@ -66,7 +66,7 @@ const Restaurantes = function Restaurantes(props){
                                             <Card.Text className='card__body__invertido__text'>
                                                 {bio}
                                             </Card.Text>
-                                            <Modal price={price} porcao={porcao} name={name} bio={bio} img={image} />
+                                            <Modal price={price} porcao={porcao} name={name} bio={bio} img={image} id={id} />
                                         </Card.Body>
                                     </Card>
                                 </Col>

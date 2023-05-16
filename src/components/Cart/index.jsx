@@ -8,10 +8,16 @@ import { close } from '../../store/reducers/cart'
 
 
 const Cart = () => {
-    const { isOpen } = useSelector((state) => state.cart)
+    const { isOpen, items } = useSelector((state) => state.cart)
     const dispatch = useDispatch()
     const closeCard = () => {
         dispatch(close())
+    }
+
+    const getTotalPrice = () => {
+        return items.reduce((acumulador, valoratual) => {
+            return (acumulador += valoratual.nota)
+        }, 0)
     }
 
     return(
@@ -19,27 +25,21 @@ const Cart = () => {
             <Overlay onClick={closeCard} />
             <SideBar>
                 <ul>
-                    <CardItem>
-                        <img src="https://domf5oio6qrcr.cloudfront.net/medialibrary/7909/conversions/b8a1309a-ba53-48c7-bca3-9c36aab2338a-thumb.jpg" alt="Girl in a jacket"/>
-                        <div>
-                            <h3>Nome do produto</h3>
-                            <span>R$ 62,92</span>
-                            <button><i className="bi bi-trash"></i></button>
-                        </div>
-                    </CardItem>
-                    <CardItem>
-                        <img src="https://domf5oio6qrcr.cloudfront.net/medialibrary/7909/conversions/b8a1309a-ba53-48c7-bca3-9c36aab2338a-thumb.jpg" alt="Girl in a jacket"/>
-                        <div>
-                            <h3>Nome do produto</h3>
-                            <span>R$ 62,92</span>
-                            <button><i className="bi bi-trash"></i></button>
-                        </div>
-                    </CardItem>
+                    {items.map((item) => (
+                        <CardItem key={item.id}>
+                            <img src={item.href} alt={item.name}/>
+                            <div>
+                                <h3>{item.name}</h3>
+                                <span>R$ {item.nota}</span>
+                                <button><i className="bi bi-trash"></i></button>
+                            </div>
+                        </CardItem>
+                    ))}
                 </ul>
                 <Container fluid className="ContPrices">
                     <Row>
                         <Col>Valor total</Col>
-                        <Col className="ContPrices__col">R$ 255.50</Col>
+                        <Col className="ContPrices__col">R$ {getTotalPrice()}</Col>
                     </Row>
                 </Container>
                 <Btn>Continuar com a entrega</Btn>

@@ -7,7 +7,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import NavMobilie from '../Navbar-mobile'
 import Banner from '../Banner'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { open } from '../../store/reducers/cart'
 
 export default function NavBarSite(props) {
@@ -20,6 +20,8 @@ export default function NavBarSite(props) {
     const openCard = () => {
         dispatch(open())
     }
+
+    const { items } = useSelector((state) => state.cart )
 
     function handleWindowSizeChange() {
         setScreenWidth(window.innerWidth)
@@ -63,7 +65,7 @@ export default function NavBarSite(props) {
                             </Col>
                             <Col className="d-flex justify-content-center">
                                 <TextNav>
-                                    0 produto(s) no carrinho
+                                    {items.length} produto(s) no carrinho
                                     <button type='button' onClick={openCard}>
                                         <i className="bi bi-cart-fill ml-3"></i>
                                     </button>
@@ -73,7 +75,7 @@ export default function NavBarSite(props) {
                     </Container>
                 </Disclosure>
                 </>
-            : <NavMobilie/> }
+            : <NavMobilie n={items.length}/> }
                 {FK === 0 ? <Banner 
                     image="https://www.sabornamesa.com.br/media/k2/items/cache/8f096abef1c84b031550e510893c2d4d_XL.jpg" 
                     name="Sweet Cupcake" category="Doceria"/> : ""}
