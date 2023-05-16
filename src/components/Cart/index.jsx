@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useDispatch } from 'react-redux'
-import { close } from '../../store/reducers/cart'
+import { close, remove } from '../../store/reducers/cart'
 
 
 const Cart = () => {
@@ -19,7 +19,10 @@ const Cart = () => {
             return (acumulador += valoratual.nota)
         }, 0)
     }
-
+    const RemoveItem = (id) => {
+        dispatch(close(remove(id)))
+        // items = items.filter((item) => item.id !== id)
+    }
     return(
         <CartContainer className={isOpen ? "is-open" : ""}>
             <Overlay onClick={closeCard} />
@@ -31,7 +34,7 @@ const Cart = () => {
                             <div>
                                 <h3>{item.name}</h3>
                                 <span>R$ {item.nota}</span>
-                                <button><i className="bi bi-trash"></i></button>
+                                <button onClick={() => RemoveItem(item.id)}><i className="bi bi-trash"></i></button>
                             </div>
                         </CardItem>
                     ))}
