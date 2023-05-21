@@ -20,8 +20,7 @@ const Cart = () => {
         }, 0)
     }
     const RemoveItem = (id) => {
-        dispatch(close(remove(id)))
-        // items = items.filter((item) => item.id !== id)
+        dispatch(remove(id))
     }
     return(
         <CartContainer className={isOpen ? "is-open" : ""}>
@@ -34,7 +33,7 @@ const Cart = () => {
                             <div>
                                 <h3>{item.name}</h3>
                                 <span>R$ {item.nota}</span>
-                                <button onClick={() => RemoveItem(item.id)}><i className="bi bi-trash"></i></button>
+                                <button type="button" onClick={() => RemoveItem(item.id)}><i className="bi bi-trash"></i></button>
                             </div>
                         </CardItem>
                     ))}
