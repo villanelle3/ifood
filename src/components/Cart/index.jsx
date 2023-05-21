@@ -6,14 +6,12 @@ import Col from 'react-bootstrap/Col';
 import { useDispatch } from 'react-redux'
 import { close, remove } from '../../store/reducers/cart'
 
-
 const Cart = () => {
     const { isOpen, items } = useSelector((state) => state.cart)
     const dispatch = useDispatch()
     const closeCard = () => {
         dispatch(close())
     }
-
     const getTotalPrice = () => {
         return items.reduce((acumulador, valoratual) => {
             return (acumulador += valoratual.nota)

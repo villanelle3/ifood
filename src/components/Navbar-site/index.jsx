@@ -51,7 +51,6 @@ export default function NavBarSite(props) {
                 setData(null) 
             })
     }, )
-    
     return (
         <>
             {ScreenWidth >= 768 ? 
