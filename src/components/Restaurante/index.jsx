@@ -20,8 +20,9 @@ const Restaurantes = function Restaurantes(props){
     const [data, setData] = useState(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
+    const FK = parseInt(props.fk)
     useEffect(() => {
-        fetch(`https://dishes-api-8lac.vercel.app/restaurantes`)
+        fetch(`https://json-server-vercel-weld.vercel.app/restaurantes`) // https://dishes-api-8lac.vercel.app/restaurantes
             .then((response) => {
                 if (!response.ok) 
                 {
@@ -41,7 +42,7 @@ const Restaurantes = function Restaurantes(props){
                 setLoading(false)
             })
         }, [])
-        const FK = parseInt(props.fk)
+        
     return(
         <MainPage>
             <Container>

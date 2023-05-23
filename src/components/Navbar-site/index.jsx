@@ -34,7 +34,7 @@ export default function NavBarSite(props) {
     }, [])
 
     useEffect(() => {
-        fetch(`https://my-json-server.typicode.com/villanelle3/restaurantAPI/restaurantes`)
+        fetch(`https://fake-api-tau.vercel.app/api/efood/restaurantes`)
             .then((response) => {
                 if (!response.ok) 
                 {
@@ -82,9 +82,9 @@ export default function NavBarSite(props) {
                     <div>{`There is a problem fetching the post data - ${error}`}</div>
                 )}
                 {data &&
-                    data.map(({ id, name, stars, bio, category, image, destaque }) => {
+                    data.map(({ id, titulo, destacado, tipo, avaliacao, descricao,  capa, cardapio }) => {
                         if (id === FK){
-                            return <Banner key={id} image={image} name={name} category={category}/>
+                            return <Banner key={id} image={capa} name={titulo} category={tipo}/>
                         }
                         else{
                             return ""

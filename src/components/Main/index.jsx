@@ -25,7 +25,7 @@ const PaginaInicial = function PaginaInicial(){
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     useEffect(() => {
-        fetch(`https://my-json-server.typicode.com/villanelle3/restaurantAPI/restaurantes`)
+        fetch(`https://fake-api-tau.vercel.app/api/efood/restaurantes`) // https://my-json-server.typicode.com/villanelle3/restaurantAPI/restaurantes
             .then((response) => {
                 if (!response.ok) 
                 {
@@ -62,25 +62,25 @@ const PaginaInicial = function PaginaInicial(){
                         <div>{`There is a problem fetching the post data - ${error}`}</div>
                     )}
                     {data &&
-                    data.map(({ id, name, stars, bio, category, image, destaque }) => (
+                    data.map(({ id, titulo, destacado, tipo, avaliacao, descricao,  capa, cardapio}) => (
                         <Col className="d-flex justify-content-center" key={id}>
                             <Card style={{ width: `${ ScreenWidth <= 768 ? ' ' : '472px' }` }}>
-                                <Card.Img variant="top" src={image} alt={name} style={{position: "relative"}} />
-                                {destaque ? 
+                                <Card.Img variant="top" src={capa} alt={titulo} style={{position: "relative",  maxHeight: "350px", objectFit: "cover"}} />
+                                {destacado ? 
                                     <SpanDestaque><Tag children="Destaque da semana" /></SpanDestaque> 
                                     : "" 
                                 }
                                 <Span>
-                                    <Tag children={category} />
+                                    <Tag children={tipo} />
                                 </Span>
                                 <Card.Body className='card__body'>
                                     <Card.Title className='card__body__title' style={{fontWeight: "bold"}}>
-                                        {name}
-                                        <SpanLeft>{stars} 
+                                        {titulo}
+                                        <SpanLeft>{avaliacao} 
                                             <span className='card__body__star'><i className="bi bi-star-fill"></i></span> 
                                         </SpanLeft>
                                     </Card.Title>
-                                    <Card.Text className='card__body__text'>{getBio(bio)}</Card.Text>
+                                    <Card.Text className='card__body__text'>{getBio(descricao)}</Card.Text>
                                     <SaibaMaisContainer>
                                         <a href={`/restaurant/${id}`}><Tag children="Saiba mais" /></a>
                                     </SaibaMaisContainer>
