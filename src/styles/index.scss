@@ -136,3 +136,32 @@ header{
         text-align: right;
     }
 }
+
+.formTitle{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+}
+
+.formLabel{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 16px;
+}
+
+#formInput, #formInput2, #formInput3, #formInput5, #formInput41, #formInput42 {
+    border-radius: 0;
+    background-color: $header;
+}
+
+.botao{
+    margin-bottom: 12px;
+}
+
+.botoes{
+    margin-top: 32px;
+}
