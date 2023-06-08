@@ -153,8 +153,8 @@ header{
     line-height: 16px;
 }
 
-#formInput, #formInput2, #formInput3, #formInput5, #formImput223, #formInput223,
-#formInput41, #formInput42, #formInput33, #formInput21, #formInput22, #formInput23, #formInput241, #formInput242  {
+#name, #endereco, #cidade, #complemento, #cep, #numero,
+#cardname, #cardnumber, #cvv, #cardexp, #cardyear  {
     border-radius: 0;
     background-color: $header;
 }
@@ -165,4 +165,8 @@ header{
 
 .botoes{
     margin-top: 32px;
+}
+
+.red{
+    color: rgb(245, 240, 240);
 }
