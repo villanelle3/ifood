@@ -7,36 +7,12 @@ import Form from 'react-bootstrap/Form'
 import { useDispatch } from 'react-redux'
 import { close, remove } from '../../store/reducers/cart'
 import React, { useState } from 'react'
-import { useFormik } from 'formik'
-import * as Yup from 'yup'
-import { usePurchaseMutation } from "../../services/api"
+// import { usePurchaseMutation } from "../../services/api"
 import InputMask from 'react-input-mask';
 
 
 const Cart = () => {
-    const [ purchase, {data} ] = usePurchaseMutation()
-    
-    const formik = useFormik({
-        initialValues: {
-        name: '',
-        endereco: '',
-        cidade: '',
-        complemento: '',
-        cep: '',
-        numero: '',
-        cardname: '',
-        cardnumber: '',
-        cvv: '',
-        cardexp: '',
-        cardyear: ''
-    },
-        validationSchema: {
-            name: Yup.string().min(5, 'O nome precisa ter pelo menos 5 caracteres')
-        },
-        onSubmit: values => {
-            console.log(values);
-        },
-    })
+    // const [ purchase, {data} ] = usePurchaseMutation()
     const [ShowCart, setShowCart] = useState(true) 
     const [ShowForm, setShowForm] = useState(true)
     const [Final, setFinal] = useState(false)
@@ -72,6 +48,14 @@ const Cart = () => {
     const [Message, setMessage] = useState(false) 
     const [Message2, setMessage2] = useState(false) 
     const [Message3, setMessage3] = useState(false) 
+
+    const [Name, setName] = useState("") 
+    const [Endereco, setEndereco] = useState("")
+    const [Cidade, setCidade] = useState("")
+    const [Complemento, setComplemento] = useState("")
+    const [CPF, setCPF] = useState("")
+    const [Numero, setNumero] = useState("")
+
     function Pyment(){
         if (nameRef.current.value && enderecoRef.current.value && cidadeRef.current.value && cepRef.current.value && numeroRef.current.value)
         {
@@ -84,6 +68,12 @@ const Cart = () => {
                     setMessage3("Complete o endereço!")
                 }
             }else{
+                setName(nameRef.current.value)
+                setEndereco(enderecoRef.current.value)
+                setCidade(cidadeRef.current.value)
+                setComplemento(complementoRef.current.value)
+                setCPF(cepRef.current.value)
+                setNumero(numeroRef.current.value)
                 setMessage(false)
                 setShowForm(false)
             }  
@@ -91,6 +81,7 @@ const Cart = () => {
             alert("Complete o formulário!")
         }  
     }
+
     function backatt(){
         setMessage4(false)
         setShowForm(true)
@@ -104,7 +95,7 @@ const Cart = () => {
     const [Message4, setMessage4] = useState(false) 
     const d = new Date();
     let year = d.getFullYear();
-
+    // const [posts, setPosts] = useState([]);
     function finalizar(e){
         if (cardnameRef.current.value && cardnumberRef.current.value && cvvRef.current.value && cardexpRef.current.value && cardyearRef.current.value){
             if (parseInt(cardyearRef.current.value) < year || (parseInt(cardyearRef.current.value) === parseInt(year) && parseInt(cardexpRef.current.value) <= parseInt(d.getMonth()))){
@@ -112,18 +103,18 @@ const Cart = () => {
                 e.preventDefault()
                 return
             }else{
-                setMessage4(false)
-                setFinal(true)
-                console.log("wait")
-                purchase({
+                e.preventDefault()
+                fetch('https://fake-api-tau.vercel.app/api/efood/checkout', {
+                method: 'POST',
+                body: JSON.stringify({
                     delivery: {
-                        receiver: nameRef.current.value,
+                        receiver: Name,
                         address: {
-                            description: enderecoRef.current.value,
-                            city: cidadeRef.current.value,
-                            zipCode: cepRef.current.value,
-                            number: numeroRef.current.value,
-                            complement: complementoRef.current.value
+                            description: Endereco,
+                            city: Cidade,
+                            zipCode: CPF,
+                            number: Numero,
+                            complement: Complemento
                         }
                     },
                     payment: {
@@ -136,9 +127,45 @@ const Cart = () => {
                                 year: cardyearRef.current.value
                             }
                         }
-                    }
-                })
+                    },
+                }),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            })
+                .then((res) => res.json())
+                // .then((post) => {
+                //     setPosts((posts) => [post, ...posts]);
+                // })
+                .catch((err) => {
+                    console.log(err.message);
+                });
+                // purchase({
+                //     delivery: {
+                //         receiver: Name,
+                //         address: {
+                //             description: Endereco,
+                //             city: Cidade,
+                //             zipCode: CPF,
+                //             number: Numero,
+                //             complement: Complemento
+                //         }
+                //     },
+                //     payment: {
+                //         card: {
+                //             name: cardnameRef.current.value,
+                //             number: cardnumberRef.current.value,
+                //             code: cvvRef.current.value,
+                //             expires: {
+                //                 month: cardexpRef.current.value,
+                //                 year: cardyearRef.current.value
+                //             }
+                //         }
+                //     }
+                // })
             }
+            setMessage4(false)
+            setFinal(true)
         }else{
             alert("Complete o formulário!")
         } 
@@ -170,51 +197,41 @@ const Cart = () => {
                             <Col className="ContPrices__col">R$ {getTotalPrice()}</Col>
                         </Row>
                     </Container>
-                    <Btn onClick={teste}>Continuar com a entrega</Btn>
+                    {getTotalPrice() > 0 ? <Btn onClick={teste}>Continuar com a entrega</Btn> : ""}
                 </> : 
                 <>
                     {ShowForm ?
-                        <Form  onSubmit={formik.handleSubmit}>
+                        <Form >
                             <Form.Label className="formTitle">Entrega</Form.Label>
                             <Form.Group>
                                 <Form.Label className="formLabel" htmlFor="name">Quem irá receber</Form.Label>
-                                <Form.Control onChange={formik.handleChange} ref={nameRef} id="name" name="name" 
-                                    value={formik.values.name} type="text" required
-                                />
+                                <Form.Control ref={nameRef} id="name" name="name" type="text" required/>
                                 {Message ? <small className="red">{Message}</small> : ""}
                             </Form.Group>
                             <Form.Group>
                                 <Form.Label className="formLabel" htmlFor="endereco">Endereço</Form.Label>
-                                <Form.Control onChange={formik.handleChange} ref={enderecoRef} id="endereco" name="endereco" 
-                                    value={formik.values.endereco} type="text" required 
-                                />
+                                <Form.Control ref={enderecoRef} id="endereco" name="endereco" type="text" required />
                                 {Message3 ? <small className="red">{Message3}</small> : ""}
                             </Form.Group>
                             <Form.Group>
                                 <Form.Label className="formLabel" htmlFor="cidade">Cidade</Form.Label>
-                                <Form.Control onChange={formik.handleChange} ref={cidadeRef} id="cidade" name="cidade" 
-                                    value={formik.values.cidade} type="text" required  
-                                />
+                                <Form.Control ref={cidadeRef} id="cidade" name="cidade" type="text" required  />
                                 {Message2 ? <small className="red">{Message2}</small> : ""}
                             </Form.Group>
                             <Form.Group>
                                 <Form.Label className="formLabel" htmlFor="complemento">Complemento (opcional)</Form.Label>
-                                <Form.Control onChange={formik.handleChange} ref={complementoRef} id="complemento" 
-                                    name="complemento" value={formik.values.complemento} type="text"  
-                                />
+                                <Form.Control ref={complementoRef} id="complemento" name="complemento" type="text"  />
                             </Form.Group>
                             <Row className="mb-3" id="formRow">
                                 <Form.Group className="col col-sm-6">
                                     <Form.Label className="formLabel" htmlFor="cep">CEP</Form.Label>
-                                    <InputMask mask="99999-999" maskChar={null} onChange={formik.handleChange} ref={cepRef} className="form-control" 
-                                    type="text" required id="cep" name="cep" value={formik.values.cep} 
-                                    />
+                                    <InputMask mask="99999-999" maskChar={null} ref={cepRef} className="form-control" 
+                                    type="text" required id="cep" name="cep" />
                                 </Form.Group>
                                     <Form.Group className="col col-sm-6">
                                         <Form.Label className="formLabel" htmlFor="numero">Número</Form.Label>
-                                        <Form.Control onChange={formik.handleChange} ref={numeroRef} className="form-control" 
-                                            type="text" required id="numero" name="numero" value={formik.values.numero} 
-                                        />
+                                        <Form.Control ref={numeroRef} className="form-control" type="text" required id="numero" 
+                                        name="numero" />
                                 </Form.Group>
                             </Row>
                             <div className="botoes">
@@ -227,7 +244,7 @@ const Cart = () => {
                             <Form> 
                                 {Final ? 
                                 <>
-                                    <Form.Label className="formTitle">Pedido realizado {data}</Form.Label>
+                                    <Form.Label className="formTitle">Pedido realizado {}</Form.Label>
                                     <p className="mb-4">
                                         Estamos felizes em informar que seu pedido já está em processo de preparação e, em breve, 
                                         será entregue no endereço fornecido.
@@ -251,39 +268,30 @@ const Cart = () => {
                                     </Form.Label>
                                     <Form.Group>
                                         <Form.Label className="formLabel" htmlFor="cardname">Nome no cartão</Form.Label>
-                                        <Form.Control onChange={formik.handleChange} id="cardname" ref={cardnameRef} name="cardname" 
-                                            value={formik.values.cardname} type="text" required 
-                                        />
+                                        <Form.Control id="cardname" ref={cardnameRef} name="cardname" type="text" required />
                                     </Form.Group>
                                     <Row id="formRow">
                                         <Form.Group className="col col-sm-8">
                                             <Form.Label className="formLabel" htmlFor="cardnumber">Número do cartão</Form.Label>
-                                            <InputMask mask="9999 9999 9999 9999" maskChar={null} onChange={formik.handleChange} 
-                                            className="form-control" type="text" required id="cardnumber" ref={cardnumberRef} 
-                                            name="cardnumber" value={formik.values.cardnumber} 
-                                            />
+                                            <InputMask mask="9999 9999 9999 9999" maskChar={null} className="form-control" 
+                                            type="text" required id="cardnumber" ref={cardnumberRef} name="cardnumber" />
                                         </Form.Group>
                                             <Form.Group className="col col-sm-4">
                                                 <Form.Label className="formLabel" htmlFor="cvv">CVV</Form.Label>
-                                                <InputMask mask="999" maskChar={null} onChange={formik.handleChange} 
-                                                className="form-control" type="text" required id="cvv" name="cvv" ref={cvvRef} 
-                                                value={formik.values.cvv} />
+                                                <InputMask mask="999" maskChar={null} className="form-control" type="text" required 
+                                                id="cvv" name="cvv" ref={cvvRef} />
                                         </Form.Group>
                                     </Row>
                                     <Row id="formRow">
                                         <Form.Group className="col col-sm-6">
                                             <Form.Label className="formLabel" htmlFor="cardexp">Mês de vencimento</Form.Label>
-                                            <Form.Control onChange={formik.handleChange} className="form-control" type="number" 
-                                                required id="cardexp" name="cardexp" ref={cardexpRef} value={formik.values.cardexp}
-                                                min="1" max="12" 
-                                            />
+                                            <Form.Control className="form-control" type="number" required id="cardexp" name="cardexp" 
+                                            ref={cardexpRef} min="1" max="12" />
                                         </Form.Group>
                                             <Form.Group className="col col-sm-6">
                                                 <Form.Label className="formLabel" htmlFor="cardyear">Ano de vencimento</Form.Label>
-                                                <Form.Control onChange={formik.handleChange} className="form-control" type="number" 
-                                                    required id="cardyear" name="cardyear" ref={cardyearRef} 
-                                                    value={formik.values.cardyear} min={year} max="2050" 
-                                                />
+                                                <Form.Control className="form-control" type="number" required id="cardyear" 
+                                                name="cardyear" ref={cardyearRef} min={year} max="2050" />
                                         </Form.Group>
                                         <br/><br/><br/><br/>
                                         <div className="botoes">
