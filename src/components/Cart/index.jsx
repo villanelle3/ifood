@@ -7,12 +7,12 @@ import Form from 'react-bootstrap/Form'
 import { useDispatch } from 'react-redux'
 import { close, remove } from '../../store/reducers/cart'
 import React, { useState } from 'react'
-// import { usePurchaseMutation } from "../../services/api"
+import { usePurchaseMutation } from "../../services/api"
 import InputMask from 'react-input-mask';
 
 
 const Cart = () => {
-    // const [ purchase, {data} ] = usePurchaseMutation()
+    const [ purchase, {data} ] = usePurchaseMutation()
     const [ShowCart, setShowCart] = useState(true) 
     const [ShowForm, setShowForm] = useState(true)
     const [Final, setFinal] = useState(false)
@@ -235,8 +235,8 @@ const Cart = () => {
                                 </Form.Group>
                             </Row>
                             <div className="botoes">
-                                <Btn onClick={Pyment} className="botao" type="submit">Continuar com o pagamento</Btn>
-                                <Btn onClick={back}>Votar para o carrinho</Btn>
+                                <Btn onClick={Pyment} className="botao" type="button">Continuar com o pagamento</Btn>
+                                <Btn onClick={back} type="button">Votar para o carrinho</Btn>
                             </div>
                         </Form>
                     : 
@@ -244,7 +244,7 @@ const Cart = () => {
                             <Form> 
                                 {Final ? 
                                 <>
-                                    <Form.Label className="formTitle">Pedido realizado {}</Form.Label>
+                                    <Form.Label className="formTitle">Pedido realizado {data}</Form.Label>
                                     <p className="mb-4">
                                         Estamos felizes em informar que seu pedido já está em processo de preparação e, em breve, 
                                         será entregue no endereço fornecido.
@@ -295,8 +295,8 @@ const Cart = () => {
                                         </Form.Group>
                                         <br/><br/><br/><br/>
                                         <div className="botoes">
-                                            <Btn onClick={finalizar} className="botao" type="submit">Finalizar pagamento</Btn>
-                                            <Btn onClick={backatt}>Votar para a edição de endereço</Btn>
+                                            <Btn type="button" onClick={finalizar} className="botao">Finalizar pagamento</Btn>
+                                            <Btn type="button" onClick={backatt}>Votar para a edição de endereço</Btn>
                                         </div>
                                     </Row>
                                     {Message4 ? <small className="red">{Message4}</small> : ""}
